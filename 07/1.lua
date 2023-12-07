@@ -16,7 +16,7 @@ args = {...}
 function rank(h)
    local bucket = {}
 
-   local a,b,c,d,e = h:match("(.)(.)(.)(.)(.)")
+   local a,b,c,d,e = h.hand:match("(.)(.)(.)(.)(.)")
    
    bucket[a] = 1
    bucket[b] = (bucket[b] or 0) + 1
@@ -38,24 +38,25 @@ function rank(h)
 --   print(nums[1], nums[2], nums[3], nums[4], nums[5])
 
    if nums[5] == 5 then
-      return 7
+      h.val = 7
    elseif nums[4] == 4 then
-      return 6
+      h.val = 6
    elseif nums[3] == 3 and nums[2] == 2 then
-      return 5
+      h.val = 5
    elseif nums[3] == 3 then
-      return 4
+      h.val = 4
    elseif nums[2] == 4 then
-      return 3
+      h.val = 3
    elseif nums[2] == 2 then
-      return 2
+      h.val = 2
    elseif nums[1] == 5 then
-      return 1
+      h.val = 1
    end
+   return h.val
 end
 
 local hands = {}
-local repl = {"1","2","3","4","5","6","7","8","9",T="B",J="C",Q="D",K="E",A="F"}
+local repl = {T="B",J="C",Q="D",K="E",A="F"}
 
 for l in io.lines(args[1]) do
    local hand, bid = l:match("(.....)%s(.+)$")
@@ -66,7 +67,7 @@ end
 
 table.sort(hands,
 	   function(l,r)
-	      local lr,rr = rank(l.hand), rank(r.hand)
+	      local lr,rr = (l.val or rank(l)), (r.val or rank(r))
 	      if lr == rr then
 		 return l.hand < r.hand
 	      end
