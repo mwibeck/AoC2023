@@ -1,7 +1,5 @@
 #!/usr/local/bin/lua-5.1
-
 args = {...}
-
 local path
 local nodes = {}
 
