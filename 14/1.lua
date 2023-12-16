@@ -2,7 +2,6 @@
 
 local args = {...}
 
-local cols = {}
 local groups = {}
 
 local y = 1
@@ -13,7 +12,6 @@ for l in io.lines(args[1]) do
       end
       
       local c = l:sub(x,x)
-      cols[x] = (cols[x] or "") .. "O"
 
       if c == "O" then
 	 groups[x].g[groups[x].idx] = groups[x].g[groups[x].idx] + 1
